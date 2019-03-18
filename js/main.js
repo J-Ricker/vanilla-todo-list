@@ -24,7 +24,11 @@ itemForm.addEventListener('submit', function (e) {
         // add to items array
         itemData.push(textValue);
         //console.log(itemData);
-        
+        // local storage
+
+
+        // add event listeners to icons
+        handleItem (textValue);
     }
 });
 
@@ -51,3 +55,51 @@ function addItem (value) {
         </div>`;
     itemList.appendChild(div);
 }
+
+function handleItem (textValue) {
+    const items = itemList.querySelectorAll('.item');
+    //console.log(items);
+    items.forEach(function (item) {
+        if (item.querySelector('.item-name').textContent === textValue) {
+            // complete event lsitener
+            item.querySelector('.complete-item').addEventListener('click', function () {
+                item.querySelector('.item-name').classList.toggle('completed');
+                this.classList.toggle('visibility');
+            });
+            //edit event lsitener
+            item.querySelector('.edit-item').addEventListener('click', function () {
+                itemInput.value = textValue;
+                itemList.removeChild(item);
+                //console.log(itemData);
+                
+
+                itemData = itemData.filter(function (item) {
+                    return item !== textValue;
+                });
+                //console.log(itemData);
+                
+            });
+            //delete event lsitener
+            item.querySelector('.delete-item').addEventListener('click', function () {
+                itemList.removeChild(item);
+                //console.log(itemData);
+                
+                itemData = itemData.filter(function (item) {
+                    return item !== textValue;
+                });
+                //console.log(itemData);
+                showFeedback('item deleted', 'success');
+            });
+        }
+    });
+}
+
+clearBtn.addEventListener('click', function () {
+    itemData = [];
+    const items =  itemList.querySelectorAll('.item');
+    if (items.length > 0) {
+        items.forEach(function (item) {
+            itemList.removeChild(item);
+        })
+    }
+})
