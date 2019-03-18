@@ -25,7 +25,7 @@ itemForm.addEventListener('submit', function (e) {
         itemData.push(textValue);
         //console.log(itemData);
         // local storage
-
+        localStorage.setItem('list', JSON.stringify(itemData));
 
         // add event listeners to icons
         handleItem (textValue);
@@ -77,7 +77,8 @@ function handleItem (textValue) {
                     return item !== textValue;
                 });
                 //console.log(itemData);
-                
+                localStorage.setItem('list', JSON.stringify(itemData));
+
             });
             //delete event lsitener
             item.querySelector('.delete-item').addEventListener('click', function () {
@@ -88,6 +89,7 @@ function handleItem (textValue) {
                     return item !== textValue;
                 });
                 //console.log(itemData);
+                localStorage.setItem('list', JSON.stringify(itemData));
                 showFeedback('item deleted', 'success');
             });
         }
