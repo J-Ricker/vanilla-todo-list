@@ -20,6 +20,7 @@ itemForm.addEventListener('submit', function (e) {
         // add item
         addItem(textValue);
         // clear form
+        itemInput.value = '';
     }
 });
 
