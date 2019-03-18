@@ -21,6 +21,10 @@ itemForm.addEventListener('submit', function (e) {
         addItem(textValue);
         // clear form
         itemInput.value = '';
+        // add to items array
+        itemData.push(textValue);
+        //console.log(itemData);
+        
     }
 });
 
