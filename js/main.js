@@ -6,3 +6,15 @@ const clearBtn = document.getElementById('clear-list');
 const feedback = document.querySelector('.feedback');
 
 let itemData = [];
+
+// form submission
+
+itemForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const textValue = itemInput.value;
+
+    if (textValue === '') {
+        showFeedback('Please enter valid value', 'danger');
+    }
+});
