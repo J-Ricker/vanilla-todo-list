@@ -5,8 +5,23 @@ const itemList = document.querySelector('.item-list');
 const clearBtn = document.getElementById('clear-list');
 const feedback = document.querySelector('.feedback');
 
-let itemData = [];
+//let itemData = [];
 
+let itemData = JSON.parse(localStorage.getItem('list')) || [];
+
+if(itemData.length > 0) {
+    itemData.forEach(function (singleItem) {
+        itemList.insertAdjacentHTML('beforeend', `
+        <div class="item my-3">
+        <h5 class="item-name text-capitalize">${singleItem}</h5>
+        <div class="item-icons">
+        <a href="#" class="complete-item mx-2 item-icon"><i class="far fa-check-circle"></i></a>
+        <a href="#" class="edit-item mx-2 item-icon"><i class="far fa-edit"></i></a>
+        <a href="#" class="delete-item item-icon"><i class="far fa-times-circle"></i></a>
+        </div>`);
+        handleItem(singleItem);
+    });
+}
 // form submission
 
 itemForm.addEventListener('submit', function (e) {
@@ -47,7 +62,7 @@ function showFeedback(text, action) {
 function addItem (value) {
     const div = document.createElement('div');
     div.classList.add('item', 'my-3');
-    div.innerHTML= ` <h5 class="item-name text-capitalize">${value}</h5>
+    div.innerHTML= `<h5 class="item-name text-capitalize">${value}</h5>
         <div class="item-icons">
         <a href="#" class="complete-item mx-2 item-icon"><i class="far fa-check-circle"></i></a>
         <a href="#" class="edit-item mx-2 item-icon"><i class="far fa-edit"></i></a>
@@ -98,10 +113,11 @@ function handleItem (textValue) {
 
 clearBtn.addEventListener('click', function () {
     itemData = [];
+    localStorage.removeItem('list');
     const items =  itemList.querySelectorAll('.item');
     if (items.length > 0) {
         items.forEach(function (item) {
             itemList.removeChild(item);
-        })
+        });
     }
-})
+});
